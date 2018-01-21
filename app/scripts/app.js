@@ -1,11 +1,10 @@
+var animate = window.requestAnimationFrame ||
+              function(callback) { window.setTimeout(callback, 1000/60) };
+
 var canvas = document.getElementById('pongTable');
 var context = canvas.getContext('2d');
 
-
 context.fillRect(0, 0, 600, 400);  
-
-
-
 
 //Paddles
 function Paddle(x,y){
@@ -24,7 +23,6 @@ Paddle.prototype.render = function(){
       
 var player = new Paddle(580, 175);
 var computer = new Paddle(10, 175);
-
 
  //Ball
  function Ball(x, y) {
@@ -46,7 +44,7 @@ var computer = new Paddle(10, 175);
 
   //render function
   var render = function() {
-    context.fillStyle = "#FF00FF";
+    context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
     player.render();
     computer.render();
