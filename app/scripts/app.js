@@ -17,9 +17,6 @@ var computer = new Computer();
 var ball = new Ball(300, 200);
 var keysDown = {};
 
-//context.fillRect(0, 0, 600, 400);  
-//debugger;
-
 window.onload = function() {
     document.body.appendChild(canvas);
     animate(step);
@@ -55,8 +52,7 @@ function Paddle(x,y){
 };
 
 Paddle.prototype.render = function(){
-    //context.beginPath();
-    context.fillStyle = 'green';
+    context.fillStyle = 'white';
     context.fillRect(this.x, this.y, this.width, this.height);
 };
       
@@ -92,8 +88,6 @@ Computer.prototype.render = function() {
     this.paddle.render();
 };
 
-  
-  
 window.addEventListener("keydown", function(event) {
     keysDown[event.keyCode] = true;
   });
@@ -102,13 +96,12 @@ window.addEventListener("keydown", function(event) {
     delete keysDown[event.keyCode];
   });
 
-
 Player.prototype.update = function() {
     for(var key in keysDown) {
       var value = Number(key);
-      if(value == 38) {       //up
+      if(value == 38) {       
         this.paddle.move(0, -4);
-      } else if (value == 40) {     //down
+      } else if (value == 40) {     
         this.paddle.move(0, 4);
       } else {
         this.paddle.move(0, 0);
@@ -121,10 +114,10 @@ Player.prototype.update = function() {
     this.y += y;
     this.x_speed = x;
     this.y_speed = y;
-    if(this.y < 0) {          //up top
+    if(this.y < 0) {          
       this.y = 0;
       this.y_speed = 0;
-    } else if (this.y + this.height > 400) {    //down bottom
+    } else if (this.y + this.height > 400) {    
       this.x = 400 - this.height;
       this.x_speed = 0;
     }
