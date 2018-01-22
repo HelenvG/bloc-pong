@@ -118,8 +118,8 @@ Player.prototype.update = function() {
       this.y = 0;
       this.y_speed = 0;
     } else if (this.y + this.height > 400) {    
-      this.x = 400 - this.height;
-      this.x_speed = 0;
+      this.y = 400 - this.height;
+      this.y_speed = 0;
     }
   };
 
