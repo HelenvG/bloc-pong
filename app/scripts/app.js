@@ -30,7 +30,7 @@ var step = function() {
 
   var update = function() {
     player.update(); 
-    ball.update(player.paddle, computer.paddle); 
+    ball.update(player.paddle, computer.paddle);    
 };
 
  //render function
@@ -67,7 +67,7 @@ Paddle.prototype.render = function(){
   
   Ball.prototype.render = function() {
     context.beginPath();
-    context.rect(this.x, this.y, 7, 7, 2 * Math.PI, false);  //square classic pong 'ball'
+    context.rect(this.x, this.y, 10, 10, 2 * Math.PI, false);  //square classic pong 'ball'
     context.fillStyle = 'white';
     context.fill();
   }; 
@@ -76,14 +76,14 @@ Paddle.prototype.render = function(){
     this.y += this.y_speed; //let's the ball move faster after hitting paddle
     this.x += this.x_speed;
     var top_x = this.x - 5;
-    var top_y =this.y - 5;
-    var bottom_x = this.x +5;
-    var bottom_y = this.y +5;
+    var top_y = this.y - 5;
+    var bottom_x = this.x + 5;
+    var bottom_y = this.y + 5;
 //collision detection: check if the ball hits the top or bottom of the pongtable
-    if(this.y + 5 <0) {
-      this.y =5;
+    if(this.y - 5 < 0) {
+      this.y = 5;
       this.y_speed = -this.y_speed;
-    } else if(this.y - 5 > 400) {
+    } else if(this.y + 5 > 400) {
       this.y = 395;
       this.y_speed = -this.y_speed;
     }
@@ -95,26 +95,27 @@ Paddle.prototype.render = function(){
       this.y = 200;
     }
 if(top_x > 300) {
-  if(top_x < (paddleOne.x + paddleOne.width) && bottom_x >paddle1.x && top_y < (paddleOne.y + paddleOne.height)&& bottom_y > paddleOne.y) {
+  if(top_x < (paddleOne.x + paddleOne.width) && bottom_x > paddleOne.x && top_y < (paddleOne.y + paddleOne.height) && bottom_y > paddleOne.y) {
     this.x_speed = -3;
-    this.y_speed += (paddleOne.y_speed /2);
-    this.x +=this.x_speed;
+    this.y_speed += (paddleOne.y_speed / 2);
+    this.x += this.x_speed;
   }
 } else {
-  if(top_x < (paddleTwo.width) && bottom_x > paddleTwo.x && top_y < (paddleTwo.y + paddle.height)&& bottom_y > paddleTwo.y){
+  if(top_x < (paddleTwo.x + paddleTwo.width) && bottom_x > paddleTwo.x && top_y < (paddleTwo.y + paddleTwo.height) && bottom_y > paddleTwo.y) {
     this.x_speed = 3;
     this.y_speed += (paddleTwo.y_speed / 2);
+    this.x += this.x_speed;
   }
 }
 
   };
  
   //Players
-  function Player() {
+  function Computer() {
     this.paddle = new Paddle(10, 175, 10, 50);
 }
 
-function Computer() {
+function Player() {
     this.paddle = new Paddle(580, 175, 10, 50);
 }
 
