@@ -30,6 +30,7 @@ var step = function() {
 
   var update = function() {
     player.update(); 
+    computer.update(ball);
     ball.update(player.paddle, computer.paddle);    
 };
 
@@ -67,19 +68,19 @@ Paddle.prototype.render = function(){
   
   Ball.prototype.render = function() {
     context.beginPath();
-    context.rect(this.x, this.y, 10, 10, 2 * Math.PI, false);  //square classic pong 'ball'
+    context.rect(this.x, this.y, 10, 10, 2 * Math.PI, false);
     context.fillStyle = 'white';
     context.fill();
   }; 
 
   Ball.prototype.update = function(paddleOne, paddleTwo) {
-    this.y += this.y_speed; //let's the ball move faster after hitting paddle
+    this.y += this.y_speed; 
     this.x += this.x_speed;
     var top_x = this.x - 5;
     var top_y = this.y - 5;
     var bottom_x = this.x + 5;
     var bottom_y = this.y + 5;
-//collision detection: check if the ball hits the top or bottom of the pongtable
+
     if(this.y - 5 < 0) {
       this.y = 5;
       this.y_speed = -this.y_speed;
@@ -87,7 +88,7 @@ Paddle.prototype.render = function(){
       this.y = 395;
       this.y_speed = -this.y_speed;
     }
-//collision detection: check to see if the ball hits the paddle (scores)
+
     if(this.x < 0 || this.x > 600) {
       this.x_speed = 3;
       this.y_speed = 0;
@@ -108,8 +109,24 @@ if(top_x > 300) {
   }
 }
 
-  };
- 
+  }; 
+//Computer
+Computer.prototype.update = function(ball) {
+  var y_position = ball.y;
+  var diff = -((this.paddle.y + (this.paddle.height / 2)) - y_position);
+  if(diff < 0 && diff < -4) {
+      diff = -5;
+  } else if(diff > 0 && diff > 4) {
+      diff = 5;
+  }
+  this.paddle.move(0, diff);
+  if(this.paddle.y < 0) {
+      this.paddle.y = 0;
+  } else if (this.paddle.y + this.paddle.height > 400) {
+    this.paddle.y = 400 - this.paddle.height;
+  } 
+};
+
   //Players
   function Computer() {
     this.paddle = new Paddle(10, 175, 10, 50);
