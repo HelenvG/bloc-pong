@@ -1,0 +1,16 @@
+h2 {
+    text-align: center;
+    font-size: 3em
+    font-family: Verdana, Sans-serif;
+    max-width: 600px;
+}
+
+#playerScoreDiusplay {
+    width: 50%;
+    float: right;
+}
+
+#computerScoreDisplay {
+    width: 50%;
+    float: left;
+}

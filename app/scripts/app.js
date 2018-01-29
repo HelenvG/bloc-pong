@@ -16,6 +16,10 @@ var player = new Player();
 var computer = new Computer();
 var ball = new Ball(300, 200);
 var keysDown = {};
+var playerScore = 0;
+var computerScore = 0;
+var playerScoreDisplay = document.getElementById("playerScoreDisplay");
+var computerScoreDisplay = document.getElementById("computerScoreDisplay");
 
 window.onload = function() {
     document.body.appendChild(canvas);
@@ -26,12 +30,14 @@ var step = function() {
     update();
     render();
     animate(step);
+    computerScoreDisplay.innerHTML = "Computer score: " + computerScore;
+    playerScoreDisplay.innerHTML = "Player score: " + playerScore;
   };
 
   var update = function() {
     player.update(); 
     computer.update(ball);
-    ball.update(player.paddle, computer.paddle);    
+    ball.update(player.paddle, computer.paddle); 
 };
 
  //render function
@@ -92,6 +98,15 @@ Paddle.prototype.render = function(){
     if(this.x < 0 || this.x > 600) {
       this.x_speed = 3;
       this.y_speed = 0;
+      if (this.x < 0) {
+        playerScore++;
+        playerScoreDisplay.innerHTML = "Player Score: " + playerScore;
+        displayMessage();
+      } else if (this.x > 600) {
+        computerScore++;
+        computerScoreDisplay.innerHTML = "Computer Score: " + computerScore;
+        displayMessage();
+      }
       this.x = 300;
       this.y = 200;
     }
@@ -107,9 +122,19 @@ if(top_x > 300) {
     this.y_speed += (paddleTwo.y_speed / 2);
     this.x += this.x_speed;
   }
-}
+ }
+};
 
-  }; 
+function displayMessage() {
+     if (this.playerScore === 11) {
+      alert("You Won!");
+      location.reload();
+       } else if (this.computerScore === 11) {
+        alert("Computer Won!");
+        location.reload();
+    }
+     };
+
 //Computer
 Computer.prototype.update = function(ball) {
   var y_position = ball.y;
@@ -126,6 +151,7 @@ Computer.prototype.update = function(ball) {
     this.paddle.y = 400 - this.paddle.height;
   } 
 };
+
 
   //Players
   function Computer() {
@@ -178,6 +204,10 @@ Player.prototype.update = function() {
       this.y_speed = 0;
     }
   };
+
+  
+
+  
 
 
 
